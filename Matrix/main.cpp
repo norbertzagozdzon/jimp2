@@ -2,6 +2,7 @@
 // written by norbert zagozdzon
 //
 #include <iostream>
+#include<complex>
 #include "matrix.h"
 
 using std::cout;

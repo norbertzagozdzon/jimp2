@@ -38,7 +38,7 @@ complex<double> readComplex(string number) {
     return {real,im};
 }
 
-complex<double>** minor(complex<double> **tab, int size, int x, int y) {
+complex<double>** minorr(complex<double> **tab, int size, int x, int y) {
     auto **result = new complex<double>*[size-1];
     for(int i=0;i<(size-1);i++) { //array memory allocatin'
         result[i]=new complex<double>[size-1];
@@ -66,7 +66,7 @@ complex<double> determinant(complex<double> **tab, int size) {
         for (int j=0;j<size;j++) {
             if (j%2==0) one=1;
             else one=-1;
-            result+=tab[0][j]*one*determinant(minor(tab,size,0,j),size-1);
+            result+=tab[0][j]*one*determinant(minorr(tab, size, 0, j),size-1);
         }
         return result;
     }
@@ -239,14 +239,14 @@ Matrix Matrix::defaultMatrix() {
 }
 
 Matrix Matrix::add(Matrix &m) {
-    if (m.rows==this->rows && m.cols==this->cols) {
-       Matrix result = Matrix(m.rows,m.cols);
-       for (int i=0;i<m.rows;i++) {
-           for(int j=0;j<m.cols;j++) {
-               result.matrix[i][j]=this->matrix[i][j]+m.matrix[i][j];
-           }
-       }
-       return result;
+    if (m.rows==rows && m.cols==cols) {
+        Matrix result = Matrix(m.rows,m.cols);
+        for (int i=0;i<m.rows;i++) {
+            for(int j=0;j<m.cols;j++) {
+                result.matrix[i][j]=matrix[i][j]+m.matrix[i][j];
+            }
+        }
+        return result;
     }
     else {
         cout<<"ERROR: MATRICES SIZE AIN'T THE SAME"<<endl;
@@ -255,11 +255,11 @@ Matrix Matrix::add(Matrix &m) {
 }
 
 Matrix Matrix::sub(Matrix &m) {
-    if (m.rows==this->rows && m.cols==this->cols) {
+    if (m.rows==rows && m.cols==cols) {
         Matrix result = Matrix(m.rows,m.cols);
         for (int i=0;i<m.rows;i++) {
             for(int j=0;j<m.cols;j++) {
-                result.matrix[i][j]=this->matrix[i][j]-m.matrix[i][j];
+                result.matrix[i][j]=matrix[i][j]-m.matrix[i][j];
             }
         }
         return result;
@@ -356,7 +356,7 @@ Matrix Matrix::reverse() {
             return defaultMatrix();
         }
         else {
-            return this->transpose().matrixOfComplements().divByNumber(this->det());
+            return transpose().matrixOfComplements().divByNumber(det());
         }
     }
     else {
@@ -383,7 +383,7 @@ Matrix Matrix::matrixOfComplements() {
             for (int j=0;j<cols;j++) {
                 if ((i+1+j+1)%2==0) one=1;
                 else one=-1;
-                result.matrix[i][j]=one*determinant(minor(matrix,rows,i,j),rows-1);
+                result.matrix[i][j]=one*determinant(minorr(matrix, rows, i, j),rows-1);
             }
         }
         return result;

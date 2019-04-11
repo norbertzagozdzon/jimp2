@@ -2,13 +2,14 @@
 #define LAB5_MATRIX_H
 
 #include <complex>
+#include <tuple>
 
 using std::complex;
 using std::tuple;
 using std::string;
 
 complex<double> readComplex(string number); // czytanie liczby zespolonej
-complex<double>** minor(complex<double> **tab, int size, int x, int y);
+complex<double>** minorr(complex<double> **tab, int size, int x, int y);
 complex<double> determinant(complex<double> **tab,int size); // funkcja do obliczania wyznacznika
 
 class Matrix {
