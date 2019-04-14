@@ -3,8 +3,8 @@
 #include "matrix.h"
 #include<complex>
 
-Matrix rep[100];
-int g;
+static Matrix rep[100];
+static int g;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -165,6 +165,7 @@ void MainWindow::on_pushResult_clicked()
         i = listSearch(ui->listWidget,ui->lineEditB);
         if (i==-1) {
             errorWrong("Matrix aint in the list.");
+            return;
         }
     }
     else {
@@ -178,6 +179,7 @@ void MainWindow::on_pushResult_clicked()
                 j=listSearch(ui->listWidget,ui->lineEditC);
                 if (j==-1) {
                     errorWrong("Matrix aint in the list.");
+                    return;
                 }
             }
         }
@@ -201,6 +203,13 @@ void MainWindow::on_pushResult_clicked()
         errorWrong("Enter some operation.");
         return;
     }
+    if (result.isError()) {
+        errorWrong("Error while operating.");
+        return;
+    }
+    else {
+        errorCompleted();
+    }
     if(ui->lineEditA->text()=="") {
         ui->textBrowserMatrix->setText(QString::fromStdString(result.print()));
     }
@@ -216,13 +225,6 @@ void MainWindow::on_pushResult_clicked()
         }
     }
     ui->textBrowserMatrix->setText(QString::fromStdString(result.print()));
-    if (result.isError()) {
-        errorWrong("Error while operating.");
-    }
-    else {
-        errorCompleted();
-    }
-
 }
 
 void MainWindow::on_resultButtonDet_clicked()

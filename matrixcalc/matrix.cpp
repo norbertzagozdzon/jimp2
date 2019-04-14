@@ -393,7 +393,7 @@ Matrix Matrix::reverse() {
             return defaultMatrix();
         }
         else {
-            return transpose().matrixOfComplements().divByNumber(det());
+            return transpose().matrixOfComplements().divByNumber(determinant);
         }
     }
     else {
