@@ -174,7 +174,7 @@ void MainWindow::on_pushResult_clicked()
     }
     if(ui->lineEditC->isEnabled()==true) {
         if(ui->lineEditC->text()!="") {
-            if (choice=="Add" || choice=="Add" || choice=="Add" || choice=="Add") {
+            if (choice=="Add" || choice=="Sub" || choice=="Mul" || choice=="Div") {
 
                 j=listSearch(ui->listWidget,ui->lineEditC);
                 if (j==-1) {
